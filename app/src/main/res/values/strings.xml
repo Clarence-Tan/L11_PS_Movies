@@ -24,4 +24,5 @@
     <string name="delete">DELETE</string>
     <string name="cancel">CANCEL</string>
     <string name="return1">RETURN</string>
+    <!-- Ignore this -->
 </resources>

@@ -88,3 +88,4 @@ public class DisplayActivity extends AppCompatActivity {
 
     }
 }
+// Ignore this
