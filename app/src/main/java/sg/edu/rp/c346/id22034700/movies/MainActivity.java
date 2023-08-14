@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -35,10 +36,14 @@ public class MainActivity extends AppCompatActivity {
         btnInsert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DBHelper db = new DBHelper(MainActivity.this);
-                String selectedItem = spinnerRating.getSelectedItem().toString();
-                db.insertMovie(etTitle.getText().toString(), etGenre.getText().toString(), Integer.parseInt(etYear.getText().toString()), selectedItem);
-                Toast.makeText(MainActivity.this, "Movie Added", Toast.LENGTH_SHORT).show();
+                if (TextUtils.isEmpty(etTitle.getText().toString()) || (TextUtils.isEmpty(etGenre.getText().toString())) || (TextUtils.isEmpty(etYear.getText().toString()))) {
+                    Toast.makeText(MainActivity.this, "No Empty Fields Allowed", Toast.LENGTH_SHORT).show();
+                } else {
+                    DBHelper db = new DBHelper(MainActivity.this);
+                    String selectedItem = spinnerRating.getSelectedItem().toString();
+                    db.insertMovie(etTitle.getText().toString(), etGenre.getText().toString(), Integer.parseInt(etYear.getText().toString()), selectedItem);
+                    Toast.makeText(MainActivity.this, "Movie Successfully Added", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

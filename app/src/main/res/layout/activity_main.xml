@@ -60,7 +60,7 @@
         android:ems="10"
         android:background="@drawable/edit_background"
         android:padding="10dp"
-        android:inputType="text"
+        android:inputType="number"
         android:hint="@string/yearHint" />
 
     <TextView

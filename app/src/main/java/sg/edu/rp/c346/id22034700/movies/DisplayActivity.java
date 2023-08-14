@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class DisplayActivity extends AppCompatActivity {
 
-    Button btnShowMovies;
+    Button btnShowMovies, back;
     Spinner spinnerFilter;
     ListView lv;
     ArrayList<Movie> movieList;
@@ -40,6 +40,7 @@ public class DisplayActivity extends AppCompatActivity {
         btnShowMovies = findViewById(R.id.btnMovieWithRating);
         spinnerFilter = findViewById(R.id.spinnerRatingFilter);
         lv = findViewById(R.id.listViewMovies);
+        back = findViewById(R.id.buttonReturn);
 
         DBHelper db = new DBHelper(DisplayActivity.this);
         movieList = db.getMovies();
@@ -77,5 +78,13 @@ public class DisplayActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(DisplayActivity.this, MainActivity.class));
+            }
+        });
+
     }
 }

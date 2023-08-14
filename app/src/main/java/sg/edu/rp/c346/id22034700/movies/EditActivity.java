@@ -1,7 +1,9 @@
 package sg.edu.rp.c346.id22034700.movies;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -40,31 +42,70 @@ public class EditActivity extends AppCompatActivity {
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DBHelper db = new DBHelper(EditActivity.this);
-                String selectedItem = spinnerRating.getSelectedItem().toString();
-                data.setTitle(etTitle.getText().toString());
-                data.setGenre(etGenre.getText().toString());
-                data.setYear(Integer.parseInt(etYear.getText().toString()));
-                data.setRating(selectedItem);
-                db.updateMovie(data);
-                db.close();
-                finish();
+                AlertDialog.Builder myBuilder = new AlertDialog.Builder(EditActivity.this);
+                myBuilder.setTitle("Danger");
+                myBuilder.setMessage("Are you sure you want to update the movie " + data.getTitle());
+                myBuilder.setCancelable(false);
+
+                myBuilder.setNegativeButton("UPDATE", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        DBHelper db = new DBHelper(EditActivity.this);
+                        String selectedItem = spinnerRating.getSelectedItem().toString();
+                        data.setTitle(etTitle.getText().toString());
+                        data.setGenre(etGenre.getText().toString());
+                        data.setYear(Integer.parseInt(etYear.getText().toString()));
+                        data.setRating(selectedItem);
+                        db.updateMovie(data);
+                        db.close();
+                        finish();
+                    }
+                });
+                myBuilder.setPositiveButton("CANCEL", null);
+                AlertDialog myDialog = myBuilder.create();
+                myDialog.show();
             }
         });
 
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DBHelper db = new DBHelper(EditActivity.this);
-                db.deleteMovie(data.getId());
-                finish();
+                AlertDialog.Builder myBuilder = new AlertDialog.Builder(EditActivity.this);
+                myBuilder.setTitle("Danger");
+                myBuilder.setMessage("Are you sure you want to delete the movie " + data.getTitle());
+                myBuilder.setCancelable(false);
+
+                myBuilder.setNegativeButton("DELETE", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        DBHelper db = new DBHelper(EditActivity.this);
+                        db.deleteMovie(data.getId());
+                        finish();
+                    }
+                });
+                myBuilder.setPositiveButton("CANCEL", null);
+                AlertDialog myDialog = myBuilder.create();
+                myDialog.show();
             }
         });
 
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                AlertDialog.Builder myBuilder = new AlertDialog.Builder(EditActivity.this);
+                myBuilder.setTitle("Danger");
+                myBuilder.setMessage("Are you sure you want to discard the changes");
+                myBuilder.setCancelable(false);
+
+                myBuilder.setNegativeButton("DISCARD", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                });
+                myBuilder.setPositiveButton("DO NOT DISCARD", null);
+                AlertDialog myDialog = myBuilder.create();
+                myDialog.show();
             }
         });
 
